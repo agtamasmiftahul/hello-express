@@ -60,7 +60,7 @@ router.post(`/`, (req, res) => {
     company: req.body.company
 
   };
-  const items = data.push(item);
+  data.push(item);
   res.send({
     message: `New data was added`,
     data: data
