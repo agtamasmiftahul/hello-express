@@ -14,15 +14,9 @@ let data = [{
   name: `Bill Gates`,
   city: `Sillicon Valley`
 }];
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', {
-    title: 'Express'
-  });
-});
 
 // GET all items
-router.get(`/api/items`, (req, res) => {
+router.get(`/`, (req, res) => {
   res.send({
     message: `Here's your data`,
     data: data
@@ -30,7 +24,7 @@ router.get(`/api/items`, (req, res) => {
 });
 
 // GET single item
-router.get(`/api/items/:id`, (req, res) => {
+router.get(`/:id`, (req, res) => {
   const items = data;
   const itemId = Number(req.params.id);
   const item = items.filter(item => {
@@ -43,7 +37,7 @@ router.get(`/api/items/:id`, (req, res) => {
 })
 
 // POST an item
-router.post(`/api/items`, (req, res) => {
+router.post(`/`, (req, res) => {
   const item = {
     id: data.length,
     name: req.body.name,
@@ -57,7 +51,7 @@ router.post(`/api/items`, (req, res) => {
 });
 
 // DELETE an item
-router.delete(`/api/items/:id`, (req, res) => {
+router.delete(`/:id`, (req, res) => {
   let items = data;
   let itemId = Number(req.params.id);
   let currentData = items.filter(item => {
@@ -71,7 +65,7 @@ router.delete(`/api/items/:id`, (req, res) => {
 });
 
 // DELETE all items
-router.delete(`/api/items`, (req, res) => {
+router.delete(`/`, (req, res) => {
   data.splice(0, data.length);
   res.send({
     message: `All items was deleted`,
@@ -80,7 +74,7 @@ router.delete(`/api/items`, (req, res) => {
 });
 
 // UPDATE an item
-router.put(`/api/items/:id`, (req, res) => {
+router.put(`/:id`, (req, res) => {
   let id = Number(req.params.id);
   let name = req.body.name;
   let city = req.body.city;
