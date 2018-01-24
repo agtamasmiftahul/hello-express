@@ -1,18 +1,32 @@
+// load dependencies
 var express = require('express');
 var router = express.Router();
 
+// define data
 let data = [{
   id: 0,
   name: `Steve Jobs`,
-  city: `San Francisco`
+  information: {
+    city: `San Francisco`,
+    phone: `081263547`,
+    company: `Apple`
+  }
 }, {
   id: 1,
   name: `Linus Torvalds`,
-  city: `New York`
+  information: {
+    city: `New York`,
+    phone: `081362447`,
+    company: `Git`
+  }
 }, {
   id: 2,
   name: `Bill Gates`,
-  city: `Sillicon Valley`
+  information: {
+    city: `Sillicon Valley`,
+    phone: `0812612744`,
+    company: `Microsoft`
+  }
 }];
 
 // GET all items
@@ -41,7 +55,10 @@ router.post(`/`, (req, res) => {
   const item = {
     id: data.length,
     name: req.body.name,
-    city: req.body.city
+    city: req.body.city,
+    phone: req.body.phone,
+    company: req.body.company
+
   };
   const items = data.push(item);
   res.send({
@@ -78,6 +95,8 @@ router.put(`/:id`, (req, res) => {
   let id = Number(req.params.id);
   let name = req.body.name;
   let city = req.body.city;
+  let phone = req.body.phone;
+  let company = req.body.company;
 
   // Find data index
   let itemIndex = data.findIndex((item, index) => {
@@ -87,14 +106,14 @@ router.put(`/:id`, (req, res) => {
   // Matching matched data
   data[itemIndex][`name`] = name;
   data[itemIndex][`city`] = city;
+  data[itemIndex][`phone`] = phone;
+  data[itemIndex][`company`] = company;
 
-  // Prepare response
   let response = {
     message: `Data was updated through by id`,
     data: data
   };
 
-  // Send response
   res.send(response);
 
 });
